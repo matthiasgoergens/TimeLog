@@ -3,7 +3,6 @@ package timelog;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.URL;
 import java.text.*;
 import java.util.*;
 import java.util.List;
@@ -214,25 +213,12 @@ class ProjectsTree extends JTree implements TimeLog {
 				return super.getLeafIcon();
 			}
 		};
-		//ImageIcon icon = createImageIcon("images/clock_small.png", "");
-		//System.out.println(icon);
 		ImageIcon smallClockIcon = new ImageIcon("images/smallClock.png");
-		ImageIcon largeClockIcon = new ImageIcon("images/largeClock.png");
 		renderer.setLeafIcon(smallClockIcon);
-		renderer.setOpenIcon(largeClockIcon);
-		renderer.setClosedIcon(largeClockIcon);
+		renderer.setOpenIcon(smallClockIcon);
+		renderer.setClosedIcon(smallClockIcon);
 		return renderer;
 	}
-
-//	protected ImageIcon createImageIcon(String path, String description) {
-//		java.net.URL imgURL = getClass().getResource(path);
-//		if (imgURL != null) {
-//			return new ImageIcon(imgURL, description);
-//		} else {
-//			System.err.println("Couldn't find file: " + path);
-//			return null;
-//		}
-//	}
 	
 	private void onLeftMouseClick() {
 		ProjectNode node = (ProjectNode) getLastSelectedPathComponent();
