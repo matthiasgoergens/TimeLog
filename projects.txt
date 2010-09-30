@@ -2,7 +2,9 @@
 # You are free to comment out or delete any line that does not apply to you.
 
 # Syntax:
-# main_project[{tooltip}] [: sub_project[{tooltip}] (, sub_project[{tooltip}])*]
+# main_project[{tooltip}]
+# 	sub_project[{tooltip}]
+# 		sub_sub_project[{tooltip}]
 
 COW{Cowley release} : CA-44277 {xe snapshot-disk-list}
 # BOS{Boston release}
