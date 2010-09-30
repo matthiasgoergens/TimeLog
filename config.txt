@@ -6,5 +6,5 @@ defaultColor=0,255,0
 activeColor=255,0,0
 semiActiveColor=100,100,200
 behaviour=hide
-logFilename=matthiasLog.txt
+logFilename=~/log/matthiasLog.txt
 projectsFilename=projects.txt
