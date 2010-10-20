@@ -1,6 +1,6 @@
 <project name="Time Log" basedir="." default="run">
-	<property name="config.file" value="config.txt" />
-	<property name="projects.file" value="projects.txt" />
+	<property name="config.file" value="config.txt.default" />
+	<property name="projects.file" value="projects.txt.default" />
 	<property name="main.class" value="timelog.Main" />
 	<property name="src.dir" value="src" />
 	<property name="bin.dir" value="bin" />
@@ -8,6 +8,8 @@
 	<property name="contents.dir" value="${dist.dir}/TimeLog" />
 	<property name="jar.file" value="${contents.dir}/TimeLog.jar" />
 	<property name="zip.file" value="${dist.dir}/TimeLog.zip" />
+	<property name="readme.markdown" value="README.markdown" />
+	<property name="readme.html" value="${contents.dir}/README.html" />
 
 	<target name="clean-dist">
 		<delete dir="${contents.dir}" />
@@ -30,7 +32,7 @@
 			fork="true" spawn="true" />
 	</target>
 
-	<target name="no-daemon">
+	<target name="no-daemon" depends="compile">
 		<exec executable="java">
 			<arg value="-cp"/>
 			<arg value="${bin.dir}"/>
@@ -46,16 +48,29 @@
 		</jar>
 	</target>
 
-	<target name="dist" depends="clean-dist,jar">
+	<target name="readme">
+		<exec executable="markdown" output="${readme.html}">
+			<arg value="${readme.markdown}"/>
+		</exec>
+	</target>
+
+	<target name="copy-to-dist">
 		<copy todir="${contents.dir}" overwrite="true" preservelastmodified="true">
-			<filelist dir=".">
-				<file name="${config.file}" />
-				<file name="${projects.file}" />
-			</filelist>
+			<fileset file="${config.file}" />
+			<fileset file="${projects.file}" />
 			<fileset file="${dist.dir}/run.*" />
-			<fileset file="${dist.dir}/README.txt" />
 		</copy>
 		<chmod file="${contents.dir}/run.*" perm="+x" />
+	</target>
+
+	<target name="win-format">
+		<exec executable="todos">
+			<arg value="${contents.dir}/${config.file}" />
+			<arg value="${contents.dir}/${projects.file}" />
+		</exec>
+	</target>
+
+	<target name="dist" depends="clean-dist,jar,readme,copy-to-dist,win-format">
 		<zip destfile="${zip.file}" basedir="${contents.dir}" />
 	</target>
 </project>

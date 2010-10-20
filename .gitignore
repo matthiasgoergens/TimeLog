@@ -1,4 +1,6 @@
 bin
-log.txt
-dist/TimeLog.zip
+config.txt
+dist/TimeLog*.zip
 dist/TimeLog/
+log.txt
+projects.txt

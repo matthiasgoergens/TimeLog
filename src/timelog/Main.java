@@ -2,13 +2,14 @@ package timelog;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.nio.channels.FileChannel;
 
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
-	private final String configFilename = "config.txt";
-	private final Config config = new Config(configFilename);
+	private final Config config = new Config();
 	private final ProjectsTree projectsTree;
 
 	private Main() throws Exception {
@@ -31,11 +32,15 @@ public class Main extends JFrame {
 		scrollPane.add(projectsTree);
 		layout.setConstraints(scrollPane, constraints);
 		getContentPane().add(scrollPane);
-		JButton stopButton = createStopButton();
-		constraints.gridy = 1;
 		constraints.weighty = 0;
+		JButton stopButton = createStopButton();
+		JButton reviewAndSendButton = createReviewAndSendButton();
+		constraints.gridy = 1;
 		layout.setConstraints(stopButton, constraints);
+		constraints.gridy = 2;
+		layout.setConstraints(reviewAndSendButton, constraints);
 		getContentPane().add(stopButton);
+		getContentPane().add(reviewAndSendButton);
 		// pack();
 		setAlwaysOnTop(true);
 		addWindowListener(new WindowAdapter() {
@@ -54,11 +59,50 @@ public class Main extends JFrame {
 		b.setForeground(Color.GRAY);
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {projectsTree.stopRecording();}
-				catch (Exception ex) {projectsTree.displayProblem(ex);}
+				stopRecording();
 			}
 		});
 		return b;
+	}
+
+	private JButton createReviewAndSendButton() {
+		JButton b = new JButton("REVIEW & SAVE");
+		b.setBackground(Color.BLACK);
+		b.setForeground(Color.GRAY);
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stopRecording();
+				new ReviewDialog(Main.this, config);
+			}
+		});
+		return b;
+	}
+
+	private void stopRecording() {
+		try {projectsTree.stopRecording();}
+		catch (Exception ex) {projectsTree.displayProblem(ex);}
+	}
+
+	ProjectsTree getProjectsTree() {
+		return projectsTree;
+	}
+
+	public static void copyFile(File sourceFile, File destFile)
+			throws IOException {
+		if (!destFile.exists())
+			destFile.createNewFile();
+		FileChannel source = null;
+		FileChannel destination = null;
+		try {
+			source = new FileInputStream(sourceFile).getChannel();
+			destination = new FileOutputStream(destFile).getChannel();
+			destination.transferFrom(source, 0, source.size());
+		} finally {
+			if (source != null)
+				source.close();
+			if (destination != null)
+				destination.close();
+		}
 	}
 
 	public static void main(String[] args) throws Exception {

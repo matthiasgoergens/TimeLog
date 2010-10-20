@@ -1,0 +1,25 @@
+# Syntax:
+# main_project[{tooltip}]
+# 	sub_project[{tooltip}]
+# 		sub_sub_project[{tooltip}]
+
+COW{Cowley release}
+	A sub-project{A specific project I'm working on}
+		CA-5644{Some ticket I care about}
+BOS{Boston release}
+CI5{Common criteria certification}
+TDP{Technical development}
+TMN{Technical management}
+LCM{Life cycle management}
+CSE{Competitive and solutions engineering}
+PTR{Consultancy and partner support}
+OSS{Open source}
+#RQA{Roadmap and requirements analysis}
+TRG{Training and learning}
+GMN{General management}
+PMN{Project management}
+PLM{Personal management}
+PRI{Production infrastructure}
+OTH{Other}
+# HOL{Holidays}
+# ILL{Illness}
