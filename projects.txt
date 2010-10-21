@@ -3,8 +3,8 @@
 # 	sub_project[{tooltip}]
 # 		sub_sub_project[{tooltip}]
 
-<<<<<<< HEAD:projects.txt
 COW{Cowley release} : CA-44277 {xe snapshot-disk-list}
+Performance
 # BOS{Boston release}
 # CI5{Common criteria certification}
 # TDP{Technical development}
