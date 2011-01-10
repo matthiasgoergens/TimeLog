@@ -361,9 +361,6 @@ class ProjectsTree extends JTree implements TimeLog {
 		for (int i = 0; i < getRowCount(); i++)
 			expandRow(i);
 	}
-<<<<<<< HEAD
-=======
-
 	/**
 	 * This method defines what happens when the user left-clicks: the clicked
 	 * project path is determined, the recording is started, and the window is
@@ -372,7 +369,6 @@ class ProjectsTree extends JTree implements TimeLog {
 	 * @param e
 	 *            The related mouse event.
 	 */
->>>>>>> master
 	private void onLeftMouseClick(MouseEvent e) {
 		TreePath path = getPathForLocation(e.getX(), e.getY());
 		if (path == null)
